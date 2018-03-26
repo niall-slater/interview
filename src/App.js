@@ -2,24 +2,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const numItems = 1;
+const numItems = 9;
 
 var cards;
 
 refreshImages();
 
 class App extends Component {
-	
-    renderCards(count) {
-		for (var i = 0; i < count; i++) {
-			this.renderCard(i);
-		}
-    }
     
     renderCard(imageIndex) {
-		console.log(cards[imageIndex].imageURL);
-		console.log(cards[imageIndex].title);
-		console.log(cards[imageIndex].description);
         return (
             <div className="card">
                 <img src={cards[imageIndex].imageURL} alt="found on internet" />
@@ -38,11 +29,17 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">InterView: A React App</h1>
                 </header>
-                
-				<button onClick={refreshImages}>View the Internet</button>
 			
                 <div className="cardWrapper">
-                    {this.renderCards(numItems)}
+                    {this.renderCard(1)}
+                    {this.renderCard(2)}
+                    {this.renderCard(3)}
+                    {this.renderCard(4)}
+                    {this.renderCard(5)}
+                    {this.renderCard(6)}
+                    {this.renderCard(7)}
+                    {this.renderCard(8)}
+                    {this.renderCard(9)}
                 </div>
             
             </div>
@@ -53,14 +50,13 @@ class App extends Component {
 export default App;
 
 function refreshImages() {
-	
 	//Rebuild the array of cards by grabbing a new image for each one.
 	var result = [numItems];
 	
 	for (var i = 0; i < numItems; i++) {
 		var cardObject = {
-			imageURL: getRandomUrl(),
-			title: "Title",
+			imageURL: getRandomImageUrl(),
+			title: getRandomQuote(),
 			description: "DESC"
 		};
 		result.push(cardObject);
@@ -69,11 +65,18 @@ function refreshImages() {
 	cards = result;
 }
 
-function getRandomUrl() {
+function getRandomImageUrl() {
     
 	//Get the URL of a random image.
 	
     var sig = Math.floor(Math.random()*1000);
     
-    return "https://source.unsplash.com/random?sig=" + sig;
+    return "https://source.unsplash.com/random/480x360?sig=" + sig;
+}
+
+function getRandomQuote() {
+	
+	var quote = "Inspiring quote.";
+	
+	return quote;
 }
