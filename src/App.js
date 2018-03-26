@@ -3,15 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 
 var card_title = "Title";
-var card_description = "Description";
-var card_image = logo;
+var card_description = "We checked a random URL and found this.";
+var card_image = setTimeout(getRandomUrl, 500);
 
 class App extends Component {
     
     renderCard() {
+        var url = getRandomUrl();
         return (
             <div className="card">
-                <img src={card_image} alt="image found on internet" />
+                <img src={card_image} alt="found on internet" />
                 <h1>{card_title}</h1>
                 <p>{card_description}</p>
             </div>
@@ -40,3 +41,24 @@ class App extends Component {
 }
 
 export default App;
+
+function getRandomUrl() {
+    
+    
+    
+    var sig = Math.floor(Math.random()*100);
+    
+    return "https://source.unsplash.com/random?sig=" + sig;
+    
+    /*
+	var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	
+    for( var i=0; i < 6; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	var result = "http://i.imgur.com/" + text +".jpg";
+    
+	return result;
+    */
+}
