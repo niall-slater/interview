@@ -8,20 +8,37 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    max-width: 80%;
     margin: 2% auto;
 }
 
 .card {
     padding: 2px;
     min-width: 30%;
-    max-width: 50%;
-    margin: 2px auto;
+    max-width: 40%;
+    margin: 2% auto;
     border-radius: 4px;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.43);
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 .card img {
     max-width: 90%;
     margin: 1% auto;
+}
+
+.card h1 {
+	font-size: 1.2em;
+}
+
+.card p {
+	padding: 0em 1em;
+}
+
+button {
+	margin: 2% auto;
+	background-color: #222;
+	color: #fff;
+	border-radius: 8px;
+	padding: 1em;
+	font-size: 1.2em;
+	cursor: pointer;
 }
