@@ -8,7 +8,15 @@ var card_image = logo;
 
 class App extends Component {
     
-    //Data for the cards
+    renderCard() {
+        return (
+            <div className="card">
+                <img src={card_image} alt="image found on internet" />
+                <h1>{card_title}</h1>
+                <p>{card_description}</p>
+            </div>
+        );
+    }
     
     render() {
         
@@ -19,11 +27,11 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">InterView: A React App</h1>
                 </header>
-            
-                <div className="card">
-                    <img src={card_image} />
-                    <h1>{card_title}</h1>
-                    <p>{card_description}</p>
+                
+                <div className="cardWrapper">
+                    {this.renderCard()}
+                    {this.renderCard()}
+                    {this.renderCard()}
                 </div>
             
             </div>
