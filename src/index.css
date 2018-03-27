@@ -1,7 +1,8 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #cbcbcb;
 }
 
 .cardWrapper {
@@ -13,12 +14,23 @@ body {
 }
 
 .card {
-    padding: 2px;
-    width: 40%;
-    
+    position: relative;
+    padding: 1%;
+    width: 20%;
+    background-color: #fff;
     margin: 1% auto;
     border-radius: 4px;
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 2% 2% 12% rgba(0, 0, 0, 0.15);
+    transition: ease .2s;
+}
+
+.card:hover {
+    transform: scale(1.2);
+}
+
+.card:hover h1 {
+    opacity: 1;
+    transition: ease .7s;
 }
 
 .card img {
@@ -27,7 +39,23 @@ body {
 }
 
 .card h1 {
-	font-size: 1.2em;
+    opacity: 0;
+    transition: ease .2s;
+    color: white;
+    text-shadow: 1px 1px 4px #222;
+    font-style: italic;
+    font-family: serif;
+    font-weight: 100;
+	font-size: .85em;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 80%;
+    height: 50%;
+    margin: auto;
+    text-align: center;
 }
 
 .card p {

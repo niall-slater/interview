@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const numItems = 9;
+const numItems = 8;
 
 var cards;
 
@@ -15,7 +15,6 @@ class App extends Component {
             <div className="card">
                 <img src={cards[imageIndex].imageURL} alt="found on internet" />
                 <h1>{cards[imageIndex].title}</h1>
-                <p>{cards[imageIndex].description}</p>
             </div>
         );
     }
@@ -39,7 +38,6 @@ class App extends Component {
                     {this.renderCard(6)}
                     {this.renderCard(7)}
                     {this.renderCard(8)}
-                    {this.renderCard(9)}
                 </div>
             
             </div>
@@ -60,6 +58,7 @@ function refreshImages() {
 			description: "DESC"
 		};
 		result.push(cardObject);
+        sleep(100);
 	}
 	
 	cards = result;
@@ -76,7 +75,22 @@ function getRandomImageUrl() {
 
 function getRandomQuote() {
 	
-	var quote = "Inspiring quote.";
-	
-	return quote;
+	var quote = "Designing for clients that don't appreciate the value of design is like buying new tires for a rental car.";
+    
+    return quote;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function loadData(url) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+           console.log(xhttp.responseText);
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
 }
