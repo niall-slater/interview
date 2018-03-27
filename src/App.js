@@ -13,7 +13,7 @@ class App extends Component {
     renderCard(imageIndex) {
         return (
             <div className="card">
-                <img src={cards[imageIndex].imageURL} alt="found on internet" />
+                <img src={cards[imageIndex].imageURL} alt="from unsplash.com" />
                 <h1>{cards[imageIndex].title}</h1>
             </div>
         );
@@ -54,8 +54,7 @@ function refreshImages() {
 	for (var i = 0; i < numItems; i++) {
 		var cardObject = {
 			imageURL: getRandomImageUrl(),
-			title: getRandomQuote(),
-			description: "DESC"
+			title: getRandomQuote()
 		};
 		result.push(cardObject);
         sleep(100);

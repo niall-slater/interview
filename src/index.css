@@ -16,21 +16,24 @@ body {
 .card {
     position: relative;
     padding: 1%;
-    width: 20%;
+	min-height: 20%;
+	min-width: 20%;
     background-color: #fff;
     margin: 1% auto;
     border-radius: 4px;
     box-shadow: 2% 2% 12% rgba(0, 0, 0, 0.15);
-    transition: ease .2s;
+    transition: ease .7s;
 }
 
-.card:hover {
-    transform: scale(1.2);
+.card:hover img {
+    transition: .2s;
+    filter: blur(4px);
 }
 
 .card:hover h1 {
     opacity: 1;
-    transition: ease .7s;
+    transition: ease 1s;
+	cursor: default;
 }
 
 .card img {
@@ -40,13 +43,13 @@ body {
 
 .card h1 {
     opacity: 0;
-    transition: ease .2s;
+    transition: ease .3s;
     color: white;
     text-shadow: 1px 1px 4px #222;
     font-style: italic;
     font-family: serif;
-    font-weight: 100;
-	font-size: .85em;
+    font-weight: 400;
+	font-size: 1.85em;
     position: absolute;
     top: 0;
     bottom: 0;
