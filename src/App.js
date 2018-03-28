@@ -7,7 +7,7 @@ import './App.css';
 function Card(props) {
 	
 	return (
-		<div className="card" onClick={props.refreshImages}>
+		<div className="card">
 			<img src={props.src} onLoad={props.onLoad} alt="from unsplash.com" />
 			<h1>{props.quote}</h1>
 			<h2>{props.credit}</h2>
@@ -51,23 +51,28 @@ class App extends Component {
 			result.push(cardObject);
 			
 			//Sleep between requests so Unsplash doesn't block us for overloading it.
-			this.sleep(100);
+			this.sleep(800);
 		}
-		
-		this.state.cards = result;
+        
+        this.state.cards = result;
 	}
 	
 	loadedImage() {
-		
+		var newNumLoaded
 		//I don't know why this needs a -1 but it does.
 		if (this.state.numLoaded < this.state.numItems-1) {
-			this.state.numLoaded++;
+			newNumLoaded = this.state.numLoaded+1;
+			this.setState({
+                numLoaded: newNumLoaded
+            });
 		} else {
-			this.state.numLoaded++;
-			this.setState({imagesLoaded : true});
+			newNumLoaded = this.state.numLoaded+1;
+			this.setState({
+                numLoaded: newNumLoaded,
+                imagesLoaded: true
+            });
 		}
 		
-		console.log("Loaded " + this.state.numLoaded + " images. imagesLoaded=" + this.state.imagesLoaded);
 	}
 	
 	getRandomImageUrl() {
@@ -111,19 +116,21 @@ class App extends Component {
 	}
 	
     render() {
-        
-		console.log("Rendering. imagesLoaded is " + this.state.imagesLoaded);
 		
-		if (this.state.imagesLoaded) {
+		if (this.state.imagesLoaded) 
+            
+        /*-- Ready state screen --*/
+        {
 			return (
 
 				<div className="App">
 					<header className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
 						<h1 className="App-title">InterView: Inspiring Quotes and Imagery</h1>
-						<p className="App-desc"><a href="http://reactjs.org" target="_blank">Built with React</a></p>
+						<p className="App-desc"><a href="http://reactjs.org" target="_blank" rel="noopener noreferrer">Built with React</a></p>
 					</header>
-
+                
+                
 					<div className="cardWrapper" style={{visibility:'visible'}}>
 						{this.renderCard(0)}
 						{this.renderCard(1)}
@@ -137,13 +144,16 @@ class App extends Component {
 					</div>
 				</div>
 			);
-		} else {
+		}
+        else
+        /*-- Loading state screen --*/
+        {
 			return (
 				<div className="App">
 					<header className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
 						<h1 className="App-title">InterView: Inspiring Quotes and Imagery</h1>
-						<p className="App-desc"><a href="http://reactjs.org" target="_blank">Built with React</a></p>
+						<p className="App-desc"><a href="http://reactjs.org" target="_blank" rel="noopener noreferrer">Built with React</a></p>
 					</header>
 
                     <img src={loadingIcon} className="App-loading" alt="loading" />
@@ -169,15 +179,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-function loadData(url) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (xhttp.readyState === 4 && xhttp.status === 200) {
-           console.log(xhttp.responseText);
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
