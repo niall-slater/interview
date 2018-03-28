@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import loadingIcon from './loading.svg';
+import quoteData from './quotesData.json';
 import './App.css';
 
 function Card(props) {
@@ -7,7 +9,8 @@ function Card(props) {
 	return (
 		<div className="card" onClick={props.refreshImages}>
 			<img src={props.src} onLoad={props.onLoad} alt="from unsplash.com" />
-			<h1>{props.title}</h1>
+			<h1>{props.quote}</h1>
+			<h2>{props.credit}</h2>
 		</div>
 	);
 }
@@ -20,7 +23,8 @@ class App extends Component {
 			imagesLoaded: false,
 			cards: [],
 			numItems: 9,
-			numLoaded: 0
+			numLoaded: 0,
+            quotes: quoteData
 		};
 		this.refreshImages();
 	}
@@ -36,9 +40,13 @@ class App extends Component {
 		var result = [];
 		
 		for (var i = 0; i < this.state.numItems; i++) {
+            
+            var quoteObject = this.getRandomQuote();
+            
 			var cardObject = {
 				imageURL: this.getRandomImageUrl(),
-				title: this.getRandomQuote()
+				quote: quoteObject[0],
+                credit: quoteObject[1]
 			};
 			result.push(cardObject);
 			
@@ -73,9 +81,18 @@ class App extends Component {
 	
 	getRandomQuote() {
 
-		var quote = "Designing for clients that don't appreciate the value of design is like buying new tires for a rental car.";
-
-		return quote;
+		var quote = "Inspiring quote goes here.";
+        var credit = "Speaker Name";
+        var numQuotes = this.state.quotes.length;
+        
+        var selector = Math.floor(Math.random() * numQuotes);
+        
+        quote = this.state.quotes[selector].quote;
+        credit = this.state.quotes[selector].credit;
+        
+        var result = [quote, credit];
+        
+		return result;
 	}
 	
 	sleep(ms) {
@@ -86,7 +103,8 @@ class App extends Component {
 		return (
 			<Card 
 				src={this.state.cards[i].imageURL}
-				title={this.state.cards[i].title}
+				quote={this.state.cards[i].quote}
+				credit={this.state.cards[i].credit}
 				onLoad={this.loadedImage.bind(this)}
 			/>
 		);
@@ -102,7 +120,8 @@ class App extends Component {
 				<div className="App">
 					<header className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
-						<h1 className="App-title">InterView: A React App</h1>
+						<h1 className="App-title">InterView: Inspiring Quotes and Imagery</h1>
+						<p className="App-desc"><a href="http://reactjs.org" target="_blank">Built with React</a></p>
 					</header>
 
 					<div className="cardWrapper" style={{visibility:'visible'}}>
@@ -123,9 +142,14 @@ class App extends Component {
 				<div className="App">
 					<header className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
-						<h1 className="App-title">InterView: A React App</h1>
+						<h1 className="App-title">InterView: Inspiring Quotes and Imagery</h1>
+						<p className="App-desc"><a href="http://reactjs.org" target="_blank">Built with React</a></p>
 					</header>
 
+                    <img src={loadingIcon} className="App-loading" alt="loading" />
+                    <p>Loading images from <a href="http://unsplash.com">unsplash.com</a></p>
+                    <em>Loading icon courtesy of <a href="http://loading.io">loading.io</a></em>
+                
 					<div className="cardWrapper" style={{visibility:'hidden'}}>
 						{this.renderCard(0)}
 						{this.renderCard(1)}
@@ -137,7 +161,7 @@ class App extends Component {
 						{this.renderCard(7)}
 						{this.renderCard(8)}
 					</div>
-
+                        
 				</div>
 			)
 		}
