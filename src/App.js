@@ -19,23 +19,23 @@ class App extends Component {
     
 	constructor(props) {
 		super(props);
-		this.state = {
-			imagesLoaded: false,
-			cards: [],
-			numItems: 9,
-			numLoaded: 0,
+        
+        this.state = {
+            imagesLoaded: false,
+            cards: [],
+            numItems: 6,
+            numLoaded: 0,
             quotes: quoteData
-		};
+        };
+        
 		this.refreshImages();
 	}
 	
 	refreshImages() {
-		
-		this.setState({
-			imagesLoaded: false,
-			cards: [],
-			numLoaded: 0
-		});
+        
+		this.setState({imagesLoaded: false});
+        this.setState({cards: []});
+        this.setState({numLoaded: 0});
 		
 		var result = [];
 		
@@ -48,29 +48,26 @@ class App extends Component {
 				quote: quoteObject[0],
                 credit: quoteObject[1]
 			};
+            
 			result.push(cardObject);
 			
 			//Sleep between requests so Unsplash doesn't block us for overloading it.
-			this.sleep(800);
+			this.sleep(500);
 		}
         
-        this.state.cards = result;
+        this.setState({cards: result});
 	}
 	
 	loadedImage() {
-		var newNumLoaded
+		var newNumLoaded;
 		//I don't know why this needs a -1 but it does.
 		if (this.state.numLoaded < this.state.numItems-1) {
 			newNumLoaded = this.state.numLoaded+1;
-			this.setState({
-                numLoaded: newNumLoaded
-            });
+			this.setState({numLoaded: newNumLoaded});
 		} else {
 			newNumLoaded = this.state.numLoaded+1;
-			this.setState({
-                numLoaded: newNumLoaded,
-                imagesLoaded: true
-            });
+			this.setState({numLoaded: newNumLoaded});
+            this.setState({imagesLoaded: true});
 		}
 		
 	}
@@ -100,6 +97,10 @@ class App extends Component {
 		return result;
 	}
 	
+    handleClick() {
+        this.refreshImages();
+    }
+    
 	sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
@@ -113,23 +114,20 @@ class App extends Component {
 				onLoad={this.loadedImage.bind(this)}
 			/>
 		);
+        
 	}
 	
     render() {
 		
-		if (this.state.imagesLoaded) 
-            
-        /*-- Ready state screen --*/
-        {
+		if (this.state.imagesLoaded) {
+            /*-- Ready state screen --*/
 			return (
-
-				<div className="App">
+                <div className="App">
 					<header className="App-header">
-						<img src={logo} className="App-logo" alt="logo" />
 						<h1 className="App-title">InterView: Inspiring Quotes and Imagery</h1>
+                        <button className="Button" onClick={this.handleClick.bind(this)}>Get more inspiration</button>
 						<p className="App-desc"><a href="http://reactjs.org" target="_blank" rel="noopener noreferrer">Built with React</a></p>
 					</header>
-                
                 
 					<div className="cardWrapper" style={{visibility:'visible'}}>
 						{this.renderCard(0)}
@@ -138,20 +136,14 @@ class App extends Component {
 						{this.renderCard(3)}
 						{this.renderCard(4)}
 						{this.renderCard(5)}
-						{this.renderCard(6)}
-						{this.renderCard(7)}
-						{this.renderCard(8)}
 					</div>
 				</div>
 			);
-		}
-        else
-        /*-- Loading state screen --*/
-        {
+		} else {
+            /*-- Loading state screen --*/
 			return (
 				<div className="App">
 					<header className="App-header">
-						<img src={logo} className="App-logo" alt="logo" />
 						<h1 className="App-title">InterView: Inspiring Quotes and Imagery</h1>
 						<p className="App-desc"><a href="http://reactjs.org" target="_blank" rel="noopener noreferrer">Built with React</a></p>
 					</header>
@@ -167,9 +159,6 @@ class App extends Component {
 						{this.renderCard(3)}
 						{this.renderCard(4)}
 						{this.renderCard(5)}
-						{this.renderCard(6)}
-						{this.renderCard(7)}
-						{this.renderCard(8)}
 					</div>
                         
 				</div>

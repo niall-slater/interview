@@ -33,7 +33,7 @@ a {
 	min-height: 20%;
 	min-width: 20%;
     background-color: #fff;
-    margin: 1% auto;
+    margin: .5% auto;
     border-radius: 4px;
     box-shadow: 2% 2% 12% rgba(0, 0, 0, 0.15);
     transition: ease .7s;
@@ -42,6 +42,7 @@ a {
 .card:hover img {
     transition: .2s;
     filter: blur(4px);
+    filter: brightness(30%);
 }
 
 .card:hover h1 {
@@ -107,11 +108,14 @@ a {
 }
 
 button {
-	margin: 2% auto;
-	background-color: #222;
-	color: #fff;
+	background-color: #333;
+    padding: 1em;
+    top: 15px;
+    right: 15px;
+    font-weight: 600;
+    position: absolute;
+	color: #61DAFB;
 	border-radius: 8px;
-	padding: 1em;
-	font-size: 1.2em;
 	cursor: pointer;
+    float:right;
 }
