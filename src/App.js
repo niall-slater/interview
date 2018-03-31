@@ -27,15 +27,33 @@ class App extends Component {
             numLoaded: 0,
             quotes: quoteData
         };
-        
+		
+		//Add placeholder data while we build the cards.
+		for (var i = 0; i < this.state.numItems; i++) {
+            
+			var quoteObject = ["Inspiring quote goes here.", "Speaker Name"];
+			
+			var cardObject = {
+				imageURL: './src/placeholder.png',
+				quote: quoteObject[0],
+                credit: quoteObject[1]
+			};
+            
+			this.state.cards.push(cardObject);
+			
+			//Sleep between requests so Unsplash doesn't block us for overloading it.
+			this.sleep(500);
+		}
+		
+		this.getRandomQuote = this.getRandomQuote.bind(this);
+		this.renderCard = this.renderCard.bind(this);
+	}
+	
+	componentDidMount() {
 		this.refreshImages();
 	}
 	
 	refreshImages() {
-        
-		this.setState({imagesLoaded: false});
-        this.setState({cards: []});
-        this.setState({numLoaded: 0});
 		
 		var result = [];
 		
@@ -55,7 +73,11 @@ class App extends Component {
 			this.sleep(500);
 		}
         
-        this.setState({cards: result});
+		this.setState({
+			imagesLoaded: false,
+			numLoaded: 0,
+			cards: result
+		});
 	}
 	
 	loadedImage() {
@@ -66,8 +88,7 @@ class App extends Component {
 			this.setState({numLoaded: newNumLoaded});
 		} else {
 			newNumLoaded = this.state.numLoaded+1;
-			this.setState({numLoaded: newNumLoaded});
-            this.setState({imagesLoaded: true});
+			this.setState({numLoaded: newNumLoaded, imagesLoaded: true});
 		}
 		
 	}
