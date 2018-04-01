@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import loadingIcon from './loading.svg';
 import quoteData from './quotesData.json';
 import './App.css';
@@ -41,8 +40,6 @@ class App extends Component {
             
 			this.state.cards.push(cardObject);
 			
-			//Sleep between requests so Unsplash doesn't block us for overloading it.
-			this.sleep(500);
 		}
 		
 		this.getRandomQuote = this.getRandomQuote.bind(this);
@@ -68,9 +65,6 @@ class App extends Component {
 			};
             
 			result.push(cardObject);
-			
-			//Sleep between requests so Unsplash doesn't block us for overloading it.
-			this.sleep(500);
 		}
         
 		this.setState({
@@ -121,11 +115,7 @@ class App extends Component {
     handleClick() {
         this.refreshImages();
     }
-    
-	sleep(ms) {
-		return new Promise(resolve => setTimeout(resolve, ms));
-	}
-
+	
 	renderCard(i) {
 		return (
 			<Card 
@@ -140,7 +130,21 @@ class App extends Component {
 	
     render() {
 		
-		if (this.state.imagesLoaded) {
+		if (this.state.cards.length === 0) {
+			/*-- This is a catch just in case we haven't setup state.cards properly. --*/
+			return(
+				<div className="App">
+					<header className="App-header">
+						<h1 className="App-title">InterView: Inspiring Quotes and Imagery</h1>
+						<p className="App-desc"><a href="http://reactjs.org" target="_blank" rel="noopener noreferrer">Built with React</a></p>
+					</header>
+
+                    <img src={loadingIcon} className="App-loading" alt="loading" />
+                    <p>Initialising resources...</p>
+                    <em>Loading icon courtesy of <a href="http://loading.io">loading.io</a></em>
+				</div>
+			);
+		} else if (this.state.imagesLoaded) {
             /*-- Ready state screen --*/
 			return (
                 <div className="App">
@@ -181,7 +185,7 @@ class App extends Component {
 						{this.renderCard(4)}
 						{this.renderCard(5)}
 					</div>
-                        
+
 				</div>
 			)
 		}
